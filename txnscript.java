@@ -54,9 +54,17 @@ public class txnscript
 	static ResultSet resultSet = null ;
 	// private static insaLogger logger = insaLogger.getLogger(txnscript.class);
 	private static String saut_de_ligne = "\n" ;
-	
+
     private txnscript()
     {
+		boolean b = connection() ;
+		
+	}
+	
+    private static boolean connection()
+    {
+		boolean result = true ;
+		
 		// identifier le pilote charge
 		boolean bCheckMySQL = checkMySQL () ;
 		if ( bCheckMySQL == true )
@@ -82,6 +90,7 @@ public class txnscript
 				e.printStackTrace();
 				// logger.error ( "JDBC_DATABASE_URL : " + jdbcUrl ) ;
 				System.out.println( "txnscript - Probleme de connection MySQL : " + jdbcUrl + " user = " + jdbcUser + " - pass = " + jdbcPass  );
+				result = false ;
 			}   
 		}
 		
@@ -110,8 +119,10 @@ public class txnscript
 				e.printStackTrace();
 				// logger.error ( "JDBC_DATABASE_URL : " + jdbcUrl ) ;
 				System.out.println( "txnscript - Probleme de connection PostgreSQL : " + jdbcUrl );
+				result = false ;
 			}   
 		}
+		return result ;
     }   
 
 	public static String getJdbcUrl ()
