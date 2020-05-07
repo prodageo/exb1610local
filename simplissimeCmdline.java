@@ -39,10 +39,16 @@ public class simplissimeCmdline {
                 HelpFormatter f = new HelpFormatter();
                 f.printHelp("Aide de simplissime", opt);
             }
+		
+	    // Initialisation des bases
 
 			String display = "" ;
 			txn = txnscript.getTxnscript() ;
+		        txn.initDb() ;
 			
+		
+	    // Traitement des options de la ligne de commandes
+		
 			// java -cp ".\postgresql-42.2.5.jar;commons-cli-1.4.jar;." simplissimeCmdline -u -id 178 -nom MER -cp 41500
             if ( cl.hasOption('u') )
 			{
