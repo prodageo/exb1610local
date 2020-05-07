@@ -20,19 +20,12 @@ import java.util.stream.Stream;
 public class txnscript
 {
 	
-	// coller ici les 4 lignes obtenues sur https://jdbc4uemf.herokuapp.com/admin?pass=xxx
-/*
+	// coller ici les paramètres issu de Heroku
 	private static String jdbcHerokuMachine = "" ;
 	private static String jdbcHerokuDatabase = "" ;
 	private static String jdbcHerokuUser = "" ;
 	private static String jdbcHerokuPass = "" ;
-*/
 
-// exemple HEROKU
-	private static String jdbcHerokuMachine = "ec2-54-246-121-32.eu-west-1.compute.amazonaws.com" ;
-	private static String jdbcHerokuDatabase = "d6v79l0erm7t35" ;
-	private static String jdbcHerokuUser = "rxfftsrckuwnsp" ;
-	private static String jdbcHerokuPass = "a1b7022433ceb48f90e2759a4319f73d3af2bbdee4f214477c90588caf8ae71f" ;
 
 // exemple MYSQL LOCAL
 	private static String jdbcMysqlMachine = "localhost" ;
@@ -157,6 +150,28 @@ public class txnscript
 	}
 
 
+    	
+    public static boolean initDb()	
+    {
+		String sql = "DROP TABLE IF EXISTS 'personnes' ; DROP TABLE IF EXISTS 'villes' ;
+	        sql = sql + "CREATE TABLE ( id SERIAL NOT NULL, nom VARCHAR(70), code_postal INTEGER, PRIMARY KEY(id) );"
+		sql = sql + "CREATE TABLE ( id SERIAL NOT NULL, nom VARCHAR(70), prenom VARCHAR(70), fk_ville INTEGER, PRIMARY KEY(id) );"
+		sql = sql + "ALTER TABLE personnes ADD CONSTRAINT cle_etrangere_personnes_vers_villes FOREIGN KEY (fk_ville) REFERENCES villes(id) MATCH SIMPLE ;" ;
+
+		try
+		{
+				PreparedStatement pstmt = cnx.prepareStatement(sql) ;
+				pstmt.executeUpdate();
+		}
+		catch (SQLException e)
+		{
+			System.out.println(e.getMessage());
+		}
+
+	    
+    }    
+	
+	
 	
     public static boolean checkMySQL()
     {
