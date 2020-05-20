@@ -136,6 +136,26 @@ public class jdbcUnitUtilities
         }
 		return result ;
     }
+	
+	
+	
+    public static boolean dropTable (String tableName)
+    {
+		
+		boolean result = true ;
+		String sql = "DROP TABLE " + tableName + ";" ;
+
+		try
+		{
+            PreparedStatement pstmt = connection.prepareStatement(sql) ;
+            pstmt.execute();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+			result = false ;
+        }
+		return result ;
+    }	
+	
     
 	// readLineByLineJava8
 	private static String readDml (String filePath) 

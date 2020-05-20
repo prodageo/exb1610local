@@ -25,7 +25,8 @@ public class simplissimeCmdline {
             opt.addOption("d", false, "cru[D] : effacer une ville en fonction du parametre fourni (id, nom, code postal)");
             opt.addOption("l", false, "lister tous les enregistrements de la table villes");
             opt.addOption("v", false, "vérifier les acces a la base (pilote, ...)");
-            opt.addOption("z", false, "ecraser la table villes");
+            opt.addOption("z", false, "ecraser la base");
+            opt.addOption("i", false, "initialiser la base");
             opt.addOption("nom", true, "nom de la ville" );
             opt.addOption("cp", true, "code postal de la ville" );
             opt.addOption("id", true, "identifiant de la ville" );
@@ -44,8 +45,7 @@ public class simplissimeCmdline {
 
 			String display = "" ;
 			txn = txnscript.getTxnscript() ;
-		        txn.initDb() ;
-			
+
 		
 	    // Traitement des options de la ligne de commandes
 		
@@ -69,12 +69,20 @@ public class simplissimeCmdline {
 					
 					String jdbcUrl = txnscript.getJdbcUrl () ;
 					jdbcUnitUtilities jdbcUtilities = jdbcUnitUtilities.getJdbcUnitUtilities( jdbcUrl ) ;
-					boolean testDelete = jdbcUtilities.deleteTableContent ( "villes" ) ; 
+					boolean testDelete = jdbcUtilities.deleteTableContent ( "personnes" ) ; 
+					boolean testDrop = jdbcUtilities.dropTable ( "personnes" ) ; 
+					testDrop = jdbcUtilities.dropTable ( "villes" ) ; 
+					
 					// display = txn.list () ;
 					// System.out.println( display ) ;
             }
 
-
+			if ( cl.hasOption('i') )
+			{
+			    txn.initDb() ;
+			}
+			
+			
             if ( cl.hasOption('v') )
 			{
 					System.out.println( "\n\nVerifier acces a la base \n" ) ;
