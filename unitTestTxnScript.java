@@ -7,13 +7,6 @@ public class unitTestTxnScript {
    // init cnx SGBD et base
    private static txnscript txn = txnscript.getTxnscript() ;
    private static String jdbcUrl = txnscript.getJdbcUrl () ;
-   private static jdbcUnitUtilities jdbcUtilities = jdbcUnitUtilities.getJdbcUnitUtilities( jdbcUrl ) ;   
-   
-   boolean testCnx = txn.check() ;
-   
-   // init contenu des tables
-   boolean testDelete = jdbcUtilities.deleteTableContent ( "villes" ) ;      
-   boolean test = jdbcUtilities.loadDml ( "./dml.sql" ) ;
 
    // tester la méthode list (en fonction du contenu du DML)
    String display = txn.list () ;
