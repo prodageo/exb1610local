@@ -17,6 +17,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.ListIterator;
+
 public class txnscript
 {
 	
@@ -516,6 +522,46 @@ public class txnscript
     }
 	
 
+
+	
+	
+	
+	
+	
+	
+	
+    public List <dtoVille> getVilles()
+	{
+		List<dtoVille> result = new ArrayList<dtoVille>() ; 
+        String sql = "SELECT * FROM listVilles ()";
+        try
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(sql) ;
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+				dtoVille currentDtoVille = new dtoVille ( rs.getString("nom") , rs.getInt("code_postal") ) ;
+				result.add ( currentDtoVille ) ;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+		return result ;
+    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
     public static String close()
