@@ -14,18 +14,10 @@ public class unitTestTxnScript {
 
    // init cnx SGBD et base
    private static txnscript txn = txnscript.getTxnscript() ;
-   private static String jdbcUrl = txnscript.getJdbcUrl () ;
 
    // tester la méthode list (en fonction du contenu du DML)
    String display = txn.list () ;
    
-/*
-   @Test
-   public void testdBConnection() {
-	   assertTrue( testCnx );
-   } 
-*/
-
    @Test
    public void testListWithMarrakech() {
 	   assertTrue(display.contains("MARRAKECH"));
@@ -42,6 +34,7 @@ public class unitTestTxnScript {
 	   assertFalse(display.contains("WASHINGTON"));
    }
 
+   // tester une méthode avec des DTO
    @Test
    public void testAppelTableFunction() {
 	List <dtoVille> list = txn.getVilles() ;
