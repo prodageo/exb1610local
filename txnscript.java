@@ -8,7 +8,15 @@ import java.util.Date;
 // types retournés par les opérations JDBC
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.sql.*;
+// import java.sql.*;
+import java.sql.CallableStatement ; 
+import java.sql.Connection ; 
+import java.sql.DriverManager ; 
+import java.sql.Statement ; 
+import java.sql.ResultSet ; 
+import java.sql.PreparedStatement ;
+import java.sql.CallableStatement ;
+
 // import java.sql.ResultSet;
 
 import java.io.IOException;
