@@ -73,6 +73,38 @@ public class txnscript
     }
 
     /*************** INTERACTION AVEC LA TABLE VILLES ***************/
+
+	
+	private villesIterator getVillesIterator(String the_sql)
+	{
+		// TODO
+	}
+
+
+	public class VilleIterator
+	{
+		boolean hasNext()
+		{
+			boolean the_result = false ;
+			// TODO
+			return true ;
+		}
+
+		String nextNomVille()
+		{
+			String the_result ="" ;
+			// TODO
+			return the_result ;
+		}
+
+		Integer nextCodePostalVille()
+		{
+			Integer the_result = 0 ;
+			// TODO
+			return the_result ;
+		}
+	}
+	
 	
     // insére un enregistrement dans la table Ville : renvoie un
     public static String insertVille (String nom, Integer codePostal)
@@ -86,33 +118,7 @@ public class txnscript
     
     public static VillesIterator searchByCodePostal(Integer searchedCodePostal)
     {
-		String result = "" ;
-			
-		String sql = "SELECT * FROM Villes WHERE code_postal = ?" ;
-
-		try
-		{
-			PreparedStatement preparedStatement = cnx.prepareStatement(sql) ;
-			preparedStatement.setInt(1, searchedCodePostal);
-			ResultSet resultSet = preparedStatement.executeQuery();
-
-			while (resultSet.next())
-			{
-				Integer id = resultSet.getInt("id");
-				result = result + "/" + id ;
-				Integer codePostal = resultSet.getInt("code_postal");
-				result = result + "/" + codePostal ;
-				String name = resultSet.getString("nom");
-				result = result + "/" + name ;
-				result = result + saut_de_ligne ;
-			}
-        } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-	    
-		return result ;
+	return result ;
     }
 
 	
