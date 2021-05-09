@@ -10,7 +10,7 @@ A exécuter en local, sur un ordinateur équipé de Java 8 minimum et qui accèd
 ### Cas 1a : java et git installés sous Windows 10
 ```
 > git clone https://github.com/prodageo/exb1610local.git
-> javac simplissime.java
+> javac -cp ".\commons-cli-1.4.jar;." simplissimeCmdline.java
 ```
 
 ### Cas 2 : java installé, git non installé
