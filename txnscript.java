@@ -72,64 +72,19 @@ public class txnscript
 	return the_result ;
     }
 
+    /*************** INTERACTION AVEC LA TABLE VILLES ***************/
 	
+    // insére un enregistrement dans la table Ville : renvoie un
     public static String insertVille (String nom, Integer codePostal)
     {
-        String result = "" ;
-		
-		String sql = "INSERT INTO Villes (nom, code_postal) VALUES(?,?)" ;
-
-		try
-		{
-				PreparedStatement pstmt = cnx.prepareStatement(sql) ;
-				pstmt.setString(1, nom);
-				pstmt.setDouble(2, codePostal);
-				pstmt.executeUpdate();
-		}
-		catch (SQLException e)
-		{
-			System.out.println(e.getMessage());
-		}
-			
-		result = result + codePostal ;
-		result = result + "/" + nom ;
-		result = result + saut_de_ligne ;		
-		return result ;
+	    String the_result = "" ;
+	    return the_result ;
     }
+
 	
-    public static String list()
-    {
-		String result = "" ;
-			
-		String sql = "SELECT * FROM Villes";
-
-		try
-		{
-			PreparedStatement preparedStatement = cnx.prepareStatement(sql) ;
-			resultSet = preparedStatement.executeQuery();
-
-			while (resultSet.next())
-			{
-				Integer id = resultSet.getInt("id");
-				result = result + "/" + id ;
-				Integer codePostal = resultSet.getInt("code_postal");
-				result = result + "/" + codePostal ;
-				String name = resultSet.getString("nom");
-				result = result + "/" + name ;
-				result = result + saut_de_ligne ;
-				// Timestamp createdDate = resultSet.getTimestamp("CREATED_DATE");
-			}
-        } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-	    
-		return result ;
-    }
-
-
-    public static String searchByCodePostal(Integer searchedCodePostal)
+    // recherche tous les enregistrements de la table Ville dont le code postal correspondant
+    
+    public static VillesIterator searchByCodePostal(Integer searchedCodePostal)
     {
 		String result = "" ;
 			
