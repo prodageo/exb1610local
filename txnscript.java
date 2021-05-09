@@ -90,6 +90,14 @@ public class txnscript
 			return true ;
 		}
 
+		Integer nextIdVille()
+		{
+			Integer the_result = 0 ;
+			// TODO
+			return the_result ;
+		}
+		
+		
 		String nextNomVille()
 		{
 			String the_result ="" ;
@@ -106,7 +114,7 @@ public class txnscript
 	}
 	
 	
-    // insére un enregistrement dans la table Ville : renvoie un
+    // insére un enregistrement dans la table Ville : renvoie une chaine avec les valeurs intégrées dans la table
     public static String insertVille (String nom, Integer codePostal)
     {
 	    String the_result = "" ;
@@ -118,243 +126,30 @@ public class txnscript
     
     public static VillesIterator searchByCodePostal(Integer searchedCodePostal)
     {
-	return result ;
+	String the_sql = "" ;
+	IteratorVilles the_it = getVillesIterator(String the_sql) ;
+	return the_it ;
     }
 
-	
-
-
-
-    public static Integer getIdVilleByNom(String nom)
+    public static VillesIterator listVilles()
     {
-
-		Integer result = 0 ;
-/*
- 		String sql = "SELECT * FROM Villes WHERE nom = ?" ;
-
-		try
-		{
-			PreparedStatement preparedStatement = cnx.prepareStatement(sql) ;
-			preparedStatement.setString(1, nom);
-			ResultSet resultSet = preparedStatement.executeQuery();
-
-			while (resultSet.next())
-			{
-				result = resultSet.getInt("id");
-			}
-        } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-*/    
-
-        /*
-		   java.sql.Types les plus frequents
-		     VARCHAR (12)
-			 CHAR (1)
-			 NUMERIC (2)
-			 DECIMAL (3)
-			 INTEGER (4)
-		
-		*/
-
- 		String sql = "{? = call idVille(?)}" ;
-
-		try
-		{
-			CallableStatement stmt=cnx.prepareCall(sql);  
-			stmt.setString(2,nom);  
-			stmt.registerOutParameter(1,Types.INTEGER);  
-			stmt.execute();  
-			result = stmt.getInt(1) ;
-        } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-		return result ;
-
-		
+	String the_sql = "" ;
+	IteratorVilles the_it = getVillesIterator(String the_sql) ;
+	return the_it ;
     }
 
-    // select * from codePostalVille ( 5 ) ;
-    public static Integer getCodePostalVilleById(Integer id)
-    {
-
-		Integer result = 0 ;
-
- 		String sql = "{? = call codePostalVille(?)}" ;
-
-		try
-		{
-			CallableStatement stmt=cnx.prepareCall(sql);  
-			stmt.setInt(2,id);  
-			stmt.registerOutParameter(1,Types.INTEGER);  
-			stmt.execute();  
-			result = stmt.getInt(1) ;
-        } catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-		return result ;
-    }
-	
-	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-	
+    // met à jour un enregistrement existant dans la table Ville : renvoie une chaine avec les valeurs intégrées dans la table	
     public static String updateVille (Integer id, String nom, Integer codePostal)
     {
-        String result = "" ;
-		
-		String sql = "UPDATE Villes SET nom = ?, code_postal = ? WHERE id = ?" ;
-
-		try
-		{
-				PreparedStatement pstmt = cnx.prepareStatement(sql) ;
-				pstmt.setString(1, nom);
-				pstmt.setDouble(2, codePostal);
-				pstmt.setInt(3, id);
-				pstmt.executeUpdate();
-		}
-		catch (SQLException e)
-		{
-			System.out.println(e.getMessage());
-		}
-			
-		result = result + id ;
-		result = result + "/" + codePostal ;
-		result = result + "/" + nom ;
-		result = result + saut_de_ligne ;		
-		return result ;
+        String the_result = "" ;
+	return the_result ;
     }
 	
 
-
-	
-	
-	
-	
-	
-	
-	
-    public List <dtoVille> getVilles()
-	{
-		List<dtoVille> result = new ArrayList<dtoVille>() ; 
-        String sql = "SELECT * FROM listVilles ()";
-        try
-		{
-			PreparedStatement pstmt = cnx.prepareStatement(sql) ;
-            ResultSet rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-				dtoVille currentDtoVille = new dtoVille ( rs.getString("nom") , rs.getInt("code_postal") ) ;
-				result.add ( currentDtoVille ) ;
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-		return result ;
-    }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-    public static String close()
+    // clot la connection au SGBD et renvoie true si la fermeture s'est bien déroulée, false sinon
+    public static boolean close()
     {
-		String result = "" ;
-		boolean isClotureOK = true ;
-	
-		try
-		{
-			if(resultSet!=null)
-			{
-				resultSet.close();
-				resultSet=null;
-			}
-		}
-		catch (SQLException e)
-		{
-			isClotureOK = false ;
-			e.printStackTrace();
-		}
-		
-		try
-		{
-			if(stmt!=null)
-			{
-				stmt.close();
-				stmt=null;
-			}
-		}
-		catch (SQLException e)
-		{
-			isClotureOK = false ;
-			e.printStackTrace();
-		}
-		
-		try
-		{
-			if(pstmt!=null)
-			{
-				pstmt.close();
-				pstmt=null;
-			}
-		}
-		catch (SQLException e)
-		{
-			isClotureOK = false ;
-			e.printStackTrace();
-		}
-
-		try
-		{
-			if(cnx!=null)
-			{
-				cnx.close();
-				cnx=null;
-			}
-		}
-		catch (SQLException e)
-		{
-			isClotureOK = false ;
-			e.printStackTrace();
-		}
-
-		if ( isClotureOK == true )
-		{
-			result = "Cloture objets JDBC OK" ;
-		}
-		else
-		{
-			result = "Cloture objets JDBC KO" ;
-		}
-
-		return result ;
-	}
+	boolean the_result = true ;
+	return the_result ;
+    }
 }
