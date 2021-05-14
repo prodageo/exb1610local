@@ -1,0 +1,25 @@
+@startuml
+class TxnScript {
+ -field1
+ #field2
+ -TxnScript()
+ +{static} TxnScript getTxnScript()
+ +{static} boolean initDb()
+ +{static} boolean populateDb()
+ +{static} boolean eraseDb()	
+ +{static} boolean check()
+ + VillesIterator getVillesIterator()
+ +{static} String insertVille (String nom, Integer codePostal)
+ +{static} 
+ +{static} 
+ +{static} 
+}
+
+class VillesIterator {
+ VillesIterator ( String )
+ boolean hasNext()
+ Integer nextIdVille()
+ String nextNomVille()
+ Integer nextCodePostalVille()
+}
+@enduml
